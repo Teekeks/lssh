@@ -11,6 +11,12 @@ Set your preferred editor with
 ``lssh config set editor nano``  
 The default editor is sublime text 3
 
+Copy content to a folder, cd into it and do the following:
+```
+chmod +x lssh.py
+sudo ln -s /usr/bin/lssh /path/to/folder/lssh.py
+```
+
 ## Usage
 
 * Create a new profile:
