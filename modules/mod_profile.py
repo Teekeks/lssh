@@ -2,7 +2,7 @@ from pprint import pprint
 import json
 from pathlib import Path
 from os import makedirs, path, system
-from util import get_profile, get_config, show_error
+from util import get_profile, get_config, show_error, profile_path
 from os import listdir
 from os.path import isfile, join
 
@@ -20,26 +20,24 @@ def handle_create(args):
     if len(args) > 0:
         # create new profile
         print(f'create new profile "{args[0]}"...')
-        _path = str(Path.home())+"/.lssh/profiles/"
-        if not path.exists(_path):
-            makedirs(_path)
-        if path.exists(_path+args[0]+".json"):
+        _file = profile_path + args[0] + ".json"
+        if not path.exists(profile_path):
+            makedirs(profile_path)
+        if path.exists(_file):
             show_error("profile with that name already exists!")
             return
-        with open(_path+args[0]+".json", "w") as file:
+        with open(_file, "w") as file:
             json.dump(profile_stub, file)
-        print('open profile settings: '+_path+args[0]+".json")
+        print('open profile settings: '+_file)
         conf = get_config()
-        system(f"{conf['editor']} {_path}{args[0]}.json")
-        # system(f"subl {_path}{args[0]}.json")
+        system(f"{conf['editor']} {_file}")
     else:
         show_error("missing profile name")
 
 
 def handle_show(args):
     if len(args) > 0:
-        _path = str(Path.home()) + "/.lssh/profiles/"
-        _file = _path+args[0]+".json"
+        _file = profile_path+args[0]+".json"
         if path.exists(_file):
             conf = get_config()
             system(f"{conf['editor']} {_file}")
@@ -50,8 +48,7 @@ def handle_show(args):
 
 
 def handle_list(args):
-    _path = str(Path.home())+"/.lssh/profiles/"
-    onlyfiles = [path.splitext(f)[0] for f in listdir(_path) if isfile(join(_path, f))]
+    onlyfiles = [path.splitext(f)[0] for f in listdir(profile_path) if isfile(join(profile_path, f))]
     for f in onlyfiles:
         pr = get_profile(f)
         if pr is not None:

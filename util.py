@@ -43,6 +43,7 @@ default_config = {
 }
 
 home_path = str(Path.home())+"/.lssh/"
+profile_path = home_path + "profiles/"
 
 
 def get_config():
