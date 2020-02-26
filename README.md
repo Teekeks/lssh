@@ -15,6 +15,7 @@ Copy content to a folder, cd into it and do the following:
 ```
 chmod +x lssh.py
 sudo ln -s /usr/bin/lssh /path/to/folder/lssh.py
+sudo cp ./lssh-completion.bash /etc/bash_completion.d/
 ```
 
 ## Usage

@@ -49,11 +49,13 @@ def handle_show(args):
 
 def handle_list(args):
     onlyfiles = [path.splitext(f)[0] for f in listdir(profile_path) if isfile(join(profile_path, f))]
-    for f in onlyfiles:
-        pr = get_profile(f)
-        if pr is not None:
-            print(f"{f} - {pr['comment']}" if len(pr["comment"]) > 0 else f)
-    pass
+    if len(args) > 0 and args[0] == "simple":
+        print(" ".join(onlyfiles))
+    else:
+        for f in onlyfiles:
+            pr = get_profile(f)
+            if pr is not None:
+                print(f"{f} - {pr['comment']}" if len(pr["comment"]) > 0 else f)
 
 
 def handle(args):

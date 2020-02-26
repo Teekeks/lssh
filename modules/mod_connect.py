@@ -8,6 +8,7 @@ def handle(args):
         # get profile
         profile = get_profile(args[0])
         if profile is None:
+            show_error(f'"{args[0]}" is not a valid profile')
             return
         _conn_str = f"ssh {profile['user']}"
         if len(profile['password']) > 0:
