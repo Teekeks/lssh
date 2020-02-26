@@ -1,6 +1,6 @@
 from pprint import pprint
 from os import system
-from util import get_profile
+from util import get_profile, show_error
 
 
 def handle(args):
@@ -18,5 +18,5 @@ def handle(args):
         system(_conn_str)
         pass
     else:
-        print("ERROR: missing profile name!")
+        show_error("missing profile name")
     pass

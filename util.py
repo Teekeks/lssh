@@ -1,10 +1,14 @@
 import json
 from pathlib import Path
 from os import path
+from sys import stderr
 
+##################################################################################
+# Profile
+##################################################################################
 
 def get_profile(name: str):
-    _path = str(Path.home())+"/.lssh/profiles/"
+    _path = home_path+"profiles/"
     _file = _path+name+".json"
     if not path.exists(_file):
         print(f'ERROR: could not find profile "{name}!')
@@ -15,8 +19,13 @@ def get_profile(name: str):
     return _json
 
 
+##################################################################################
+# Config
+##################################################################################
+
+
 def write_config(conf):
-    _file = str(Path.home()) + "/.lssh/config.json"
+    _file = home_path + "config.json"
     _curr_conf = None
     if path.exists(_file):
         with open(_file, "r") as f:
@@ -33,11 +42,21 @@ default_config = {
     "editor": "subl"
 }
 
+home_path = str(Path.home())+"/.lssh/"
+
 
 def get_config():
-    _file = str(Path.home()) + "/.lssh/config.json"
+    _file = home_path + "config.json"
     if not path.exists(_file):
         write_config(default_config)
         return default_config
     with open(_file, "r") as f:
         return json.load(f)
+
+
+##################################################################################
+# Console
+##################################################################################
+
+def show_error(msg: str) -> None:
+    print(f"ERROR: {msg}", file=stderr)

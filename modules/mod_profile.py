@@ -2,7 +2,7 @@ from pprint import pprint
 import json
 from pathlib import Path
 from os import makedirs, path, system
-from util import get_profile, get_config
+from util import get_profile, get_config, show_error
 from os import listdir
 from os.path import isfile, join
 
@@ -24,7 +24,7 @@ def handle_create(args):
         if not path.exists(_path):
             makedirs(_path)
         if path.exists(_path+args[0]+".json"):
-            print("ERROR: profile with that name already exists!")
+            show_error("profile with that name already exists!")
             return
         with open(_path+args[0]+".json", "w") as file:
             json.dump(profile_stub, file)
@@ -33,7 +33,7 @@ def handle_create(args):
         system(f"{conf['editor']} {_path}{args[0]}.json")
         # system(f"subl {_path}{args[0]}.json")
     else:
-        print("ERROR: missing profile name")
+        show_error("missing profile name")
 
 
 def handle_show(args):
@@ -44,9 +44,9 @@ def handle_show(args):
             conf = get_config()
             system(f"{conf['editor']} {_file}")
         else:
-            print("ERROR: profile does not exist")
+            show_error("profile does not exist")
     else:
-        print("ERROR: missing profile name")
+        show_error("missing profile name")
 
 
 def handle_list(args):

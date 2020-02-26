@@ -5,6 +5,7 @@ import argparse
 import modules.mod_connect as mod_connect
 import modules.mod_profile as mod_profile
 import modules.mod_config as mod_config
+from util import show_error
 
 argparser = argparse.ArgumentParser(description='Manage ssh connections')
 argparser.add_argument('action',
@@ -24,4 +25,4 @@ option = option_map.get(args.action)
 if option is not None:
     option(args.arg)
 else:
-    print('ERROR: unknown action')
+    show_error('unknown action')
