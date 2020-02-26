@@ -16,6 +16,8 @@ def handle(args):
         _conn_str += f"@{profile['ip']} -p {profile['port']}"
         if len(profile['cert_file']) > 0:
             _conn_str += f" -i {profile['cert_file']}"
+        # append all additional params to the ssh connection string
+        _conn_str += " "+" ".join(args[1:])
         system(_conn_str)
         pass
     else:
