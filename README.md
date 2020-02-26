@@ -9,7 +9,7 @@ Simple ssh profile management tool for the commandline.
 
 Set your preferred editor with
 ``lssh config set editor nano``  
-The default editor is sublime text 3
+The default editor is nano
 
 Copy content to a folder, cd into it and do the following:
 ```

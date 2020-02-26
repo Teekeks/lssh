@@ -3,13 +3,13 @@ from pathlib import Path
 from os import path
 from sys import stderr
 
+
 ##################################################################################
 # Profile
 ##################################################################################
 
 def get_profile(name: str):
-    _path = home_path+"profiles/"
-    _file = _path+name+".json"
+    _file = profile_path+name+".json"
     if not path.exists(_file):
         print(f'ERROR: could not find profile "{name}!')
         return None
@@ -22,7 +22,6 @@ def get_profile(name: str):
 ##################################################################################
 # Config
 ##################################################################################
-
 
 def write_config(conf):
     _file = home_path + "config.json"
@@ -39,7 +38,7 @@ def write_config(conf):
 
 
 default_config = {
-    "editor": "subl"
+    "editor": "nano"
 }
 
 home_path = str(Path.home())+"/.lssh/"
