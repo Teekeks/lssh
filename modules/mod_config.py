@@ -35,12 +35,10 @@ def handle(args):
     if len(args) > 0:
         op = ops.get(args[0])
         if op is None:
-            # TODO show error
             show_error(f'"{args[0]}" is not a valid option')
             return
         op(args[1:])
     else:
-        # TODO show error
         print("Missing option. Possible:")
         for s in ops.keys():
             print(f"-lssh config {s}")

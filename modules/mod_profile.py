@@ -12,6 +12,7 @@ profile_stub = {
     "port": 22,
     "password": "",
     "cert_file": "",
+    "password_file": "",
     "comment": ""
 }
 

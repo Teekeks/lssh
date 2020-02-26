@@ -5,7 +5,7 @@ Simple ssh profile management tool for the commandline.
 ## Install
 
 * requires python 3.6 or higher
-* requires ssh
+* requires ssh and sshpass
 
 Set your preferred editor with
 ``lssh config set editor nano``  
