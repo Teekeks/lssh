@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+_complete_profile()
+{
+      COMPREPLY=($(compgen -W "$(lssh profile list simple)" "$1"))
+}
+
+_complete_config()
+{
+      COMPREPLY=($(compgen -W "$(lssh config show simple)" "$1"))
+}
+
 _lssh_completions()
 {
   local cur="${COMP_WORDS[$COMP_CWORD]}" prev
@@ -10,7 +20,7 @@ _lssh_completions()
     # we are on the second argument
     prev="${COMP_WORDS[1]}"
     if [[ $prev == "connect" ]]; then
-      COMPREPLY=($(compgen -W "$(lssh profile list simple)" "${COMP_WORDS[2]}"))
+      _complete_profile "${COMP_WORDS[2]}"
     elif [[ $prev == "profile" ]]; then
       COMPREPLY=($(compgen -W "show create list" "${COMP_WORDS[2]}"))
     elif [[ $prev == "config" ]]; then
@@ -21,8 +31,11 @@ _lssh_completions()
     prev="${COMP_WORDS[2]}"
     snd="${COMP_WORDS[1]}"
     if [[ $snd == "profile" ]] && [[ $prev == "show" ]]; then
-      COMPREPLY=($(compgen -W "$(lssh profile list simple)" "${COMP_WORDS[3]}"))
+      _complete_profile "${COMP_WORDS[3]}"
+    elif [[ $snd == "config" ]] && [[ $prev == "set" ]]; then
+      _complete_config "${COMP_WORDS[3]}"
     fi
+
   fi
 }
 

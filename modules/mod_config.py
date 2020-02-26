@@ -15,7 +15,10 @@ def handle_set(args):
 
 
 def handle_show(args):
-    pprint(get_config())
+    if len(args) > 0 and args[0] == "simple":
+        print(" ".join(get_config().keys()))
+    else:
+        pprint(get_config())
 
 
 def handle_open(args):
