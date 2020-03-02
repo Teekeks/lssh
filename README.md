@@ -14,8 +14,8 @@ The default editor is nano
 Copy content to a folder, cd into it and do the following:
 ```
 chmod +x lssh.py
-sudo ln -s /usr/bin/lssh /path/to/folder/lssh.py
-sudo cp ./lssh-completion.bash /etc/bash_completion.d/
+sudo ln -s /path/to/folder/lssh.py /usr/bin/lssh
+sudo ln -s /path/to/folder/lssh-completion.bash /etc/bash_completion.d/lssh-completion.bash
 ```
 
 ## Usage
@@ -30,3 +30,26 @@ sudo cp ./lssh-completion.bash /etc/bash_completion.d/
 ``lssh connect <name>``
 * Set your preferred editor:
 ``lssh config set editor <editor command>``
+* Change search path for Profiles:
+``lssh config set profile_home <path>``
+* Open the config:
+``lssh config open``
+
+## Configuration
+
+| Option       | Type   | Default              |  Comment |
+|--------------|--------|----------------------|---|
+| editor       | String | nano                 |  The editor command used for opening configs and profiles |
+| profile_home | String | {lssh_home}profiles/ |  The path to the location where lssh stores its profiles. |
+
+##Profiles
+
+| Option        | Type   | Default | Required? | Comment                                                                               |
+|---------------|--------|---------|-----------|---------------------------------------------------------------------------------------|
+| user          | String |         | Yes       | The username to log in with                                                           |
+| ip            | String |         | Yes       | The IP of the remote Server                                                           |
+| port          | Int    | 22      | Yes       | The Port of the remote Server                                                         |
+| password      | String |         | No        | Password of remote user. Ignored if cert_file or password_file is set.                |
+| cert_file     | String |         | No        | Path to certificate file to use for Login                                             |
+| password_file | String |         | No        | Path to file containing the password of the remote user. Ignored if cert_file is set. |
+| comment       | String |         | No        | A comment that will show up when ``lssh profile list`` is issued                      |
