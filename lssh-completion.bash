@@ -24,7 +24,7 @@ _lssh_completions()
     elif [[ $prev == "profile" ]]; then
       COMPREPLY=($(compgen -W "show create list" "${COMP_WORDS[2]}"))
     elif [[ $prev == "config" ]]; then
-      COMPREPLY=($(compgen -W "set show open" "${COMP_WORDS[2]}"))
+      COMPREPLY=($(compgen -W "set get show open" "${COMP_WORDS[2]}"))
     fi
   elif [ "$COMP_CWORD" -eq "3" ]; then
     # we are on the third argument
@@ -33,6 +33,8 @@ _lssh_completions()
     if [[ $snd == "profile" ]] && [[ $prev == "show" ]]; then
       _complete_profile "${COMP_WORDS[3]}"
     elif [[ $snd == "config" ]] && [[ $prev == "set" ]]; then
+      _complete_config "${COMP_WORDS[3]}"
+    elif [[ $snd == "config" ]] && [[ $prev == "get" ]]; then
       _complete_config "${COMP_WORDS[3]}"
     fi
 

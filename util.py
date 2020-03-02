@@ -11,12 +11,15 @@ from sys import stderr
 def get_profile(name: str):
     _file = profile_path+name+".json"
     if not path.exists(_file):
-        print(f'ERROR: could not find profile "{name}!')
+        show_error(f'could not find profile "{name}!')
         return None
     _json = None
-    with open(_file, "r") as file:
-        _json = json.load(file)
-    return _json
+    try:
+        with open(_file, "r") as file:
+            _json = json.load(file)
+        return _json
+    except json.decoder.JSONDecodeError:
+        show_error(f'While reading profile "{name}": invalid JSON')
 
 
 ##################################################################################
@@ -38,7 +41,8 @@ def write_config(conf):
 
 
 default_config = {
-    "editor": "nano"
+    "editor": "nano",
+    "profile_path": "{lssh_home}profiles/"
 }
 
 home_path = str(Path.home())+"/.lssh/"
@@ -50,8 +54,22 @@ def get_config():
     if not path.exists(_file):
         write_config(default_config)
         return default_config
-    with open(_file, "r") as f:
-        return json.load(f)
+    try:
+        with open(_file, "r") as f:
+            return json.load(f)
+    except json.decoder.JSONDecodeError:
+        show_error("while reading config: invalid JSON")
+        return default_config
+
+
+##################################################################################
+# Init
+##################################################################################
+
+def init():
+    global profile_path
+    c = get_config()
+    profile_path = c["profile_path"].replace("{lssh_home}", home_path)
 
 
 ##################################################################################

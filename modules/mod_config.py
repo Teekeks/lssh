@@ -11,7 +11,8 @@ def handle_set(args):
             write_config(_c)
         else:
             show_error(f'{args[0]} is not a valid option')
-    pass
+    else:
+        show_error('please specify which config option you want to set')
 
 
 def handle_show(args):
@@ -19,6 +20,17 @@ def handle_show(args):
         print(" ".join(get_config().keys()))
     else:
         pprint(get_config())
+
+
+def handle_get(args):
+    if len(args) > 0:
+        if args[0] in default_config.keys():
+            c = get_config()
+            print(c[args[0]])
+        else:
+            show_error(f'{args[0]} is not a valid option')
+    else:
+        show_error('please specify which config option you want to get')
 
 
 def handle_open(args):
@@ -29,6 +41,7 @@ def handle_open(args):
 def handle(args):
     ops = {
         "set": handle_set,
+        "get": handle_get,
         "show": handle_show,
         "open": handle_open
     }

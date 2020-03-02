@@ -5,7 +5,7 @@ import argparse
 import modules.mod_connect as mod_connect
 import modules.mod_profile as mod_profile
 import modules.mod_config as mod_config
-from util import show_error
+from util import show_error, init
 
 argparser = argparse.ArgumentParser(description='Manage ssh connections')
 argparser.add_argument('action',
@@ -20,6 +20,8 @@ option_map = {
     "profile": mod_profile.handle,
     "config": mod_config.handle
 }
+
+init()
 
 option = option_map.get(args.action)
 if option is not None:
