@@ -42,7 +42,7 @@ sudo ln -s /path/to/folder/lssh-completion.bash /etc/bash_completion.d/lssh-comp
 | editor       | String | nano                 |  The editor command used for opening configs and profiles |
 | profile_home | String | {lssh_home}profiles/ |  The path to the location where lssh stores its profiles. |
 
-##Profiles
+## Profiles
 
 | Option        | Type   | Default | Required? | Comment                                                                               |
 |---------------|--------|---------|-----------|---------------------------------------------------------------------------------------|
