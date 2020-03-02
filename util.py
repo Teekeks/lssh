@@ -8,6 +8,17 @@ from sys import stderr
 # Profile
 ##################################################################################
 
+profile_stub = {
+    "user": "",
+    "ip": "",
+    "port": 22,
+    "password": "",
+    "cert_file": "",
+    "password_file": "",
+    "comment": ""
+}
+
+
 def get_profile(name: str):
     _file = profile_path+name+".json"
     if not path.exists(_file):
@@ -17,7 +28,9 @@ def get_profile(name: str):
     try:
         with open(_file, "r") as file:
             _json = json.load(file)
-        return _json
+            profile = profile_stub.copy()
+            profile.update(_json)
+        return profile
     except json.decoder.JSONDecodeError:
         show_error(f'While reading profile "{name}": invalid JSON')
 

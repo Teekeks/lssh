@@ -2,19 +2,9 @@ from pprint import pprint
 import json
 from pathlib import Path
 from os import makedirs, path, system
-from util import get_profile, get_config, show_error, profile_path
+from util import get_profile, get_config, show_error, profile_path, profile_stub
 from os import listdir
 from os.path import isfile, join
-
-profile_stub = {
-    "user": "",
-    "ip": "",
-    "port": 22,
-    "password": "",
-    "cert_file": "",
-    "password_file": "",
-    "comment": ""
-}
 
 
 def handle_create(args):
