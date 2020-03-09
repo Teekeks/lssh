@@ -1,4 +1,3 @@
-from pprint import pprint
 from os import system
 from util import get_profile, show_error
 

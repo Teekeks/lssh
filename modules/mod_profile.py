@@ -1,6 +1,4 @@
-from pprint import pprint
 import json
-from pathlib import Path
 from os import makedirs, path, system
 from util import get_profile, get_config, show_error, profile_path, profile_stub
 from os import listdir

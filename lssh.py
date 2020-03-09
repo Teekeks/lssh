@@ -1,20 +1,10 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
-import argparse
 import modules.mod_connect as mod_connect
 import modules.mod_profile as mod_profile
 import modules.mod_config as mod_config
 from util import show_error, init
 from sys import argv, exit
-
-#argparser = argparse.ArgumentParser(description='Manage ssh connections')
-#argparser.add_argument('action',
-#                       metavar='action',
-#                       type=str,
-#                       choices=['connect', 'profile', 'config'])
-#argparser.add_argument('arg', metavar='arg', type=str, nargs='*')
-#args = argparser.parse_args()
 
 option_map = {
     "connect": mod_connect.handle,
