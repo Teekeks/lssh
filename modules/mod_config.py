@@ -28,11 +28,11 @@ def handle_open(args):
 
 
 def register_parser(sub: argparse._SubParsersAction):
-    group = sub.add_parser('config')
+    group = sub.add_parser('config', help='Show and change settings')
     group.description = 'Show and change settings'
-    ms = group.add_subparsers()
+    ms = group.add_subparsers(metavar='command')
 
-    set_group = ms.add_parser('set')
+    set_group = ms.add_parser('set', help='set the value of a setting')
     set_group.description = 'set the value of a setting'
     set_group.add_argument('key',
                            type=str,
@@ -42,7 +42,7 @@ def register_parser(sub: argparse._SubParsersAction):
                            help='value you want the option to be')
     set_group.set_defaults(func=handle_set)
 
-    get_group = ms.add_parser('get')
+    get_group = ms.add_parser('get', help='get the value of a setting')
     get_group.description = 'get the value of a setting'
     get_group.add_argument('option',
                            type=str,
@@ -50,11 +50,11 @@ def register_parser(sub: argparse._SubParsersAction):
                            help='the option you want to get')
     get_group.set_defaults(func=handle_get)
 
-    open_group = ms.add_parser('open')
+    open_group = ms.add_parser('open', help='open config in editor')
     open_group.description = 'open config in editor'
     open_group.set_defaults(func=handle_open)
 
-    show_group = ms.add_parser('show')
+    show_group = ms.add_parser('show', help='print config to console')
     show_group.description = 'print config to console'
     show_group.add_argument('isSimple',
                             choices=['simple'],

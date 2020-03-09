@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(
     description="Lena SSH - Manage SSH connections"
 )
 
-subparsers = parser.add_subparsers()
+subparsers = parser.add_subparsers(metavar='command')
 mod_config.register_parser(subparsers)
 mod_connect.register_parser(subparsers)
 mod_profile.register_parser(subparsers)
