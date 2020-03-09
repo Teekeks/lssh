@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
-from os import path
+from os import path, listdir
 from sys import stderr, exit
+from os.path import isfile, join
 
 
 ##################################################################################
@@ -34,6 +35,10 @@ def get_profile(name: str):
     except json.decoder.JSONDecodeError:
         show_error(f'While reading profile "{name}": invalid JSON')
 
+
+def get_available_profiles():
+    only_files = [path.splitext(f)[0] for f in listdir(profile_path) if isfile(join(profile_path, f))]
+    return only_files
 
 ##################################################################################
 # Config

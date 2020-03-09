@@ -1,36 +1,25 @@
-from util import write_config, default_config, get_config, home_path, show_error
+from util import write_config, default_config, get_config, home_path
 from pprint import pprint
 from os import system
+import argparse
 
 
 def handle_set(args):
-    if len(args) > 1:
-        if args[0] in default_config.keys():
-            _c = {args[0]: args[1]}
-            print(f'setting {args[0]} to "{args[1]}"')
-            write_config(_c)
-        else:
-            show_error(f'{args[0]} is not a valid option')
-    else:
-        show_error('please specify which config option you want to set')
+    _c = {args.key: args.value}
+    print(f'setting {args.key} to "{args.value}"')
+    write_config(_c)
 
 
 def handle_show(args):
-    if len(args) > 0 and args[0] == "simple":
+    if args.isSimple is not None:
         print(" ".join(get_config().keys()))
     else:
         pprint(get_config())
 
 
 def handle_get(args):
-    if len(args) > 0:
-        if args[0] in default_config.keys():
-            c = get_config()
-            print(c[args[0]])
-        else:
-            show_error(f'{args[0]} is not a valid option')
-    else:
-        show_error('please specify which config option you want to get')
+    c = get_config()
+    print(c[args.option])
 
 
 def handle_open(args):
@@ -38,22 +27,37 @@ def handle_open(args):
     system(f"{get_config()['editor']} {home_path}config.json")
 
 
-def handle(args):
-    ops = {
-        "set": handle_set,
-        "get": handle_get,
-        "show": handle_show,
-        "open": handle_open
-    }
-    if len(args) > 0:
-        op = ops.get(args[0])
-        if op is None:
-            show_error(f'"{args[0]}" is not a valid option')
-            return
-        op(args[1:])
-    else:
-        print("Missing option. Possible:")
-        for s in ops.keys():
-            print(f"-lssh config {s}")
-        show_error("missing option")
-        return
+def register_parser(sub: argparse._SubParsersAction):
+    group = sub.add_parser('config')
+    group.description = 'Show and change settings'
+    ms = group.add_subparsers()
+
+    set_group = ms.add_parser('set')
+    set_group.description = 'set the value of a setting'
+    set_group.add_argument('key',
+                           type=str,
+                           choices=default_config.keys(),
+                           help='option to set')
+    set_group.add_argument('value',
+                           help='value you want the option to be')
+    set_group.set_defaults(func=handle_set)
+
+    get_group = ms.add_parser('get')
+    get_group.description = 'get the value of a setting'
+    get_group.add_argument('option',
+                           type=str,
+                           choices=default_config.keys(),
+                           help='the option you want to get')
+    get_group.set_defaults(func=handle_get)
+
+    open_group = ms.add_parser('open')
+    open_group.description = 'open config in editor'
+    open_group.set_defaults(func=handle_open)
+
+    show_group = ms.add_parser('show')
+    show_group.description = 'print config to console'
+    show_group.add_argument('isSimple',
+                            choices=['simple'],
+                            nargs='?',
+                            help='only show available settings')
+    show_group.set_defaults(func=handle_show)
