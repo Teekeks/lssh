@@ -39,11 +39,11 @@ def handle_show(args):
 
 
 def handle_list(args):
-    onlyfiles = [path.splitext(f)[0] for f in listdir(profile_path) if isfile(join(profile_path, f))]
+    only_files = [path.splitext(f)[0] for f in listdir(profile_path) if isfile(join(profile_path, f))]
     if len(args) > 0 and args[0] == "simple":
-        print(" ".join(onlyfiles))
+        print(" ".join(only_files))
     else:
-        for f in onlyfiles:
+        for f in only_files:
             pr = get_profile(f)
             if pr is not None:
                 print(f"{f} - {pr['comment']}" if len(pr["comment"]) > 0 else f)
@@ -56,14 +56,16 @@ def handle(args):
         "list": handle_list
     }
     if len(args) == 0:
-        print("Missing option. Possible:")
+        print("Possible:")
         for s in options.keys():
             print(f"-lssh profile {s}")
+        show_error("Missing option.")
     else:
         opt = options.get(args[0])
         if opt is not None:
             opt(args[1:])
         else:
-            print("Unknown option. Possible:")
+            print("Possible:")
             for s in options.keys():
                 print(f"-lssh profile {s}")
+            show_error("Unknown option.")

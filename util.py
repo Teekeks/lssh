@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from os import path
-from sys import stderr
+from sys import stderr, exit
 
 
 ##################################################################################
@@ -91,3 +91,4 @@ def init():
 
 def show_error(msg: str) -> None:
     print(f"ERROR: {msg}", file=stderr)
+    exit(1)
