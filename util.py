@@ -38,6 +38,7 @@ def get_profile(name: str):
 
 def get_available_profiles():
     only_files = [path.splitext(f)[0] for f in listdir(profile_path) if isfile(join(profile_path, f))]
+    only_files.sort()
     return only_files
 
 ##################################################################################
