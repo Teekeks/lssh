@@ -25,7 +25,9 @@ def handle(args):
 
 
 def register_parser(sub: argparse._SubParsersAction):
-    group = sub.add_parser('connect', help='Connect to a profile')
+    group = sub.add_parser('connect',
+                           help='Connect to a profile',
+                           aliases=['c'])
     group.description = 'Connect to a profile'
     group.add_argument('profile',
                        metavar='profile',

@@ -19,7 +19,7 @@ _lssh_completions()
   elif [ "$COMP_CWORD" -eq "2" ]; then
     # we are on the second argument
     prev="${COMP_WORDS[1]}"
-    if [[ $prev == "connect" ]]; then
+    if [[ $prev == "connect" ]] || [[ $prev == "c" ]]; then
       _complete_profile "${COMP_WORDS[2]}"
     elif [[ $prev == "profile" ]]; then
       COMPREPLY=($(compgen -W "show create list" "${COMP_WORDS[2]}"))
