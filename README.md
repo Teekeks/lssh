@@ -28,6 +28,7 @@ sudo ln -s /path/to/folder/lssh-completion.bash /etc/bash_completion.d/lssh-comp
 ``lssh profile list``
 * Connect to a profile:
 ``lssh connect <name>``
+or ``lssh c <name>``
 * Set your preferred editor:
 ``lssh config set editor <editor command>``
 * Change search path for Profiles:
