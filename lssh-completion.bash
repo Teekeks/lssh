@@ -30,7 +30,7 @@ _lssh_completions()
     # we are on the third argument
     prev="${COMP_WORDS[2]}"
     snd="${COMP_WORDS[1]}"
-    if [[ $snd == "profile" ]] && [[ $prev == "show" ]]; then
+    if [[ $snd == "profile" ]] && ( [[ $prev == "show" ]] || [[ $prev == "edit" ]] || [[ $prev == "open" ]]); then
       _complete_profile "${COMP_WORDS[3]}"
     elif [[ $snd == "config" ]] && [[ $prev == "set" ]]; then
       _complete_config "${COMP_WORDS[3]}"

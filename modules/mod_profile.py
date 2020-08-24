@@ -45,7 +45,9 @@ def register_parser(sub: argparse._SubParsersAction):
     group.description = 'manage profiles'
     ms = group.add_subparsers(metavar='command')
 
-    show_group = ms.add_parser('show', help='open profile in editor')
+    show_group = ms.add_parser('show',
+                               help='open profile in editor',
+                               aliases=['edit', 'open'])
     show_group.description = 'open profile in editor'
     show_group.add_argument('profile',
                             metavar='profile',
@@ -61,7 +63,9 @@ def register_parser(sub: argparse._SubParsersAction):
                             help='display a simple version of this list')
     list_group.set_defaults(func=handle_list)
 
-    create_group = ms.add_parser('create', help='create a new profile')
+    create_group = ms.add_parser('create',
+                                 help='create a new profile',
+                                 aliases=['add', 'new'])
     create_group.description = 'create a new profile'
     create_group.add_argument('name',
                               type=str,
